@@ -27,3 +27,26 @@ jobs:
         run: |
           npm ci
           npm run build --if-present
+
+  test:
+    runs-on: ubuntu-latest
+    name: tests
+    needs: build
+    steps:
+
+
+      - name:  Checkout code
+        uses: actions/checkout@v4
+      
+      - name:  Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+        node-version: '18'
+        cache: 'npm'
+        
+      - name:  Install dependencies
+        run: npm ci
+      - name: test with coverage
+        run: npm test -- --coverage --coverageReporters=text --coverageReporters=lcov
+      - name:  Run tests with coverage
+        run: npm test -- --coverage --coverageReporters=text --coverageReporters=lcov
