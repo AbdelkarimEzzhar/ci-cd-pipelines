@@ -67,13 +67,16 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-      - name: install dependencies
-        run: npm ci
 
-      - name: test with coverage
-        run: npm test -- --coverage --coverageReporters=lcov  # ← Critical for coverage
-      
-      - name: 🧹 Run SonarCloud analysis
+
+      - name: 📥 Download coverage report
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+
+
+      - name:  Run SonarCloud analysis
         uses: SonarSource/sonarqube-scan-action@v5.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
