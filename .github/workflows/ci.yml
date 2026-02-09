@@ -74,7 +74,7 @@ jobs:
         run: npm test -- --coverage --coverageReporters=lcov  # ← Critical for coverage
       
       - name: 🧹 Run SonarCloud analysis
-        uses: sonarsource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
