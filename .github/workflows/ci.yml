@@ -50,6 +50,15 @@ jobs:
         run: npm test -- --coverage --coverageReporters=text --coverageReporters=lcov
       - name:  Run tests with coverage
         run: npm test -- --coverage --coverageReporters=text --coverageReporters=lcov
+ 
+
+      - name:  Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report  # ← THIS IS THE KEY
+          path: coverage/
+          retention-days: 7
+
 
 
   quality:
@@ -69,7 +78,7 @@ jobs:
           cache: 'npm'
 
 
-      - name: 📥 Download coverage report
+      - name:  Download coverage report
         uses: actions/download-artifact@v4
         with:
           name: coverage-report
@@ -81,8 +90,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
-          organization: ${{ secrets.SONAR_ORGANIZATION }}
-
-    
+        
