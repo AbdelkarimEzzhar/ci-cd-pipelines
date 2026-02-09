@@ -8,10 +8,10 @@
   },
   "scripts": {
     "start": "node src/app.js",
-    "test": "jest --verbose"
+    "test": "jest --verbose --coverage --coverageReporters=text --coverageReporters=lcov"
   },
   "keywords": [],
-  "author": "",
+  "author": "EZZHAR",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
@@ -20,5 +20,16 @@
   "devDependencies": {
     "jest": "^30.2.0",
     "supertest": "^7.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "lcov",
+      "text-summary"
+    ]
   }
 }
