@@ -50,3 +50,36 @@ jobs:
         run: npm test -- --coverage --coverageReporters=text --coverageReporters=lcov
       - name:  Run tests with coverage
         run: npm test -- --coverage --coverageReporters=text --coverageReporters=lcov
+
+
+  quality:
+    runs-on: ubuntu-latest
+    name:  Quality Analysis
+    needs: test
+    steps:
+      - name:  Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name:  Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - name: install dependencies
+        run: npm ci
+
+      - name: test with coverage
+        run: npm test -- --coverage --coverageReporters=lcov  # ← Critical for coverage
+      
+      - name: 🧹 Run SonarCloud analysis
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+          organization: ${{ secrets.SONAR_ORGANIZATION }}
+
+    
