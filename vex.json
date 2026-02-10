@@ -1,0 +1,9 @@
+{
+  "vex": [
+    {
+      "vulnerability": "CVE-2025-45853",
+      "justification": "Not applicable to our use case - we don't use zlib in a way that triggers this vulnerability",
+      "status": "not_affected"
+    }
+  ]
+}

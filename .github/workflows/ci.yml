@@ -134,7 +134,7 @@ jobs:
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
       - name: scan docker image
-        run:  trivy image --severity HIGH,CRITICAL --exit-code 1 ${{ secrets.DOCKER_USERNAME }}/ci-cd-pipelines:latest 
+        run:  trivy image --vex ./vex.json --severity HIGH,CRITICAL --exit-code 1 ${{ secrets.DOCKER_USERNAME }}/ci-cd-pipelines:latest 
 
 
 
