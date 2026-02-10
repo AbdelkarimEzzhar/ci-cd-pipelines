@@ -21,8 +21,8 @@ COPY src ./src
 COPY package*.json ./
 
 # Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
+RUN groupadd -g 1001 nodejs && \
+    useradd -u 1001 -g nodejs -s /sbin/nologin -d /app nodejs
 
 # Change ownership
 RUN chown -R nodejs:nodejs /app
