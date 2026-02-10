@@ -119,3 +119,22 @@ jobs:
           context: .
           push: true 
           tags: ${{ steps.meta.outputs.tags }}
+
+  security scan:
+    runs-on: ubuntu-latest
+    name: security scan
+    needs: docker-build-push
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: Install trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: scan docker image
+        run:  trivy image --severity HIGH,CRITICAL --exit-code 1 ${{ secrets.DOCKER_USERNAME }}/ci-cd-pipelines:latest 
+
+        
+
