@@ -120,7 +120,7 @@ jobs:
           push: true 
           tags: ${{ steps.meta.outputs.tags }}
 
-  security scan:
+  security-scan:
     runs-on: ubuntu-latest
     name: security scan
     needs: docker-build-push
@@ -136,5 +136,5 @@ jobs:
       - name: scan docker image
         run:  trivy image --severity HIGH,CRITICAL --exit-code 1 ${{ secrets.DOCKER_USERNAME }}/ci-cd-pipelines:latest 
 
-        
+
 
