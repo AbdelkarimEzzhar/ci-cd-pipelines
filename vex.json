@@ -1,0 +1,18 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.4",
+    "version": 1,
+    "vulnerabilities": [
+        {
+            "id": "CVE-2025-45853",
+            "affects": [
+                {
+                    "ref": "pkg:deb/debian/libz1@1.2.11-2?arch=amd64"
+                }
+            ],
+            "status": "not_affected",
+            "justification": "vulnerable-code-not-present",
+            "impactStatement": "Not applicable to our use case"
+        }
+    ]
+}

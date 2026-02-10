@@ -133,6 +133,14 @@ jobs:
         run: |
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
+
+      - name: Verify VEX file
+        run: |
+          echo "VEX file content:"
+          cat vex.json
+          echo "VEX file size: $(wc -c < vex.json) bytes"
+
+
       - name: scan docker image
         run:  trivy image --severity HIGH,CRITICAL --exit-code 1 ${{ secrets.DOCKER_USERNAME }}/ci-cd-pipelines:latest 
 
