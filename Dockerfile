@@ -1,4 +1,4 @@
-FROM node:20.18.0-slim AS builder
+FROM node:20.18.1-slim AS builder
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN npm ci --only=production
 
 # Stage 2: Production
-FROM node:20.18.0-slim
+FROM node:20.18.1-slim
 
 WORKDIR /app
 
