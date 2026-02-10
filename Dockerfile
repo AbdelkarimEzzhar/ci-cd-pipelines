@@ -1,5 +1,9 @@
 FROM node:20-bookworm-slim AS builder
 
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
 WORKDIR /app
 
 # Copy package files
@@ -10,6 +14,9 @@ RUN npm ci --only=production
 
 # Stage 2: Production
 FROM node:20-bookworm-slim
+
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
