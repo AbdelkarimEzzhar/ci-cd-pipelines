@@ -1,9 +1,18 @@
 {
-  "vex": [
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "vulnerabilities": [
     {
-      "vulnerability": "CVE-2025-45853",
-      "justification": "Not applicable to our use case - we don't use zlib in a way that triggers this vulnerability",
-      "status": "not_affected"
+      "id": "CVE-2025-45853",
+      "impactStatement": "Not applicable to our use case",
+      "justification": "vulnerable-code-not-present",
+      "status": "not_affected",
+      "affects": [
+        {
+          "ref": "pkg:deb/debian/libz1@1.2.11-2?arch=amd64"
+        }
+      ]
     }
   ]
 }
