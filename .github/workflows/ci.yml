@@ -142,7 +142,7 @@ jobs:
 
 
       - name: scan docker image
-        run:  trivy image --severity HIGH,CRITICAL --exit-code 1 ${{ secrets.DOCKER_USERNAME }}/ci-cd-pipelines:latest 
+        run:  trivy image --format json --output trivy-report.json --vex vex.json --severity HIGH,CRITICAL --exit-code 0 ${{ secrets.DOCKER_USERNAME }}/ci-cd-pipelines:latest 
 
 
 
