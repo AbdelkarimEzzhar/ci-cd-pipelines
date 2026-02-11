@@ -1,18 +1,32 @@
 {
-    "bomFormat": "CycloneDX",
-    "specVersion": "1.4",
+    "author": "EZZHAR",
+    "timestamp": "2024-05-20T00:00:00.000Z",
     "version": 1,
-    "vulnerabilities": [
+    "statements": [
         {
-            "id": "CVE-2025-45853",
-            "affects": [
+            "vulnerability": "CVE-2025-68973",
+            "status": "not_affected",
+            "justification": "vulnerable_code_not_in_execute_path",
+            "products": [
                 {
-                    "ref": "pkg:deb/debian/libz1@1.2.11-2?arch=amd64"
+                    "@id": "pkg:generic/gpgv"
                 }
             ],
+            "notes": "The vulnerable component is installed but not used or executed in our application runtime."
+        },
+        {
+            "vulnerability": "CVE-2025-4802",
             "status": "not_affected",
-            "justification": "vulnerable-code-not-present",
-            "impactStatement": "Not applicable to our use case"
+            "justification": "vulnerable_code_not_in_execute_path",
+            "products": [
+                {
+                    "@id": "pkg:generic/libc6"
+                },
+                {
+                    "@id": "pkg:generic/libc-bin"
+                }
+            ],
+            "notes": "Our application runs in a containerized environment and does not expose the attack vectors required to exploit this libc issue."
         }
     ]
 }
