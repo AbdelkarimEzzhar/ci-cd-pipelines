@@ -139,3 +139,25 @@ jobs:
 
       - name: scan docker image
         run:  trivy image  --severity HIGH,CRITICAL --exit-code 0 --ignorefile .trivyignore  ${{ secrets.DOCKER_USERNAME }}/ci-cd-pipelines:latest 
+ 
+ 
+  deploy-production:
+    runs-on: ubuntu-latest
+    name: Deploy to Production
+    needs: security-scan
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    permissions:
+      id-token: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Deploy to production
+        run: |
+          echo " Deployment to production environment..."
+          echo " Application available at: https://api.example.com"
+          echo "   - Pull the Docker image from Docker Hub"
+          echo "   - Run 'docker run' with production configuration"
+          echo "   - Update DNS/load balancer"
+          echo "   - Run health checks"
