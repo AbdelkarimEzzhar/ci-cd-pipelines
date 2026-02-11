@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim AS builder
+FROM node:20-alpine AS builder
 
 RUN apt-get update && apt-get upgrade -y && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -10,13 +10,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm ci --only=production && npm audit fix
 
 # Stage 2: Production
-FROM node:20-bookworm-slim
+FROM node:20-alpine
 
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apk update && apk upgrade --no-cache && \
+    apk add --no-cache dumb-init
 
 WORKDIR /app
 
@@ -28,11 +28,12 @@ COPY src ./src
 COPY package*.json ./
 
 # Create non-root user
-RUN groupadd -g 1001 nodejs && \
-    useradd -u 1001 -g nodejs -s /sbin/nologin -d /app nodejs
 
-# Change ownership
-RUN chown -R nodejs:nodejs /app
+RUN addgroup -g 1001 nodejs && \
+    adduser -u 1001 -G nodejs -s /bin/sh -D nodejs && \
+    chown -R nodejs:nodejs /app
+
+
 
 # Switch to non-root user
 USER nodejs
