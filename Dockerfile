@@ -30,7 +30,7 @@ COPY package*.json ./
 # Create non-root user
 
 RUN addgroup -g 1001 nodejs && \
-    adduser -u 1001 -G nodejs -s /bin/sh -D nodejs && \
+    adduser -u 1001 -G nodejs -s /sbin/nologin -D nodejs && \
     chown -R nodejs:nodejs /app
 
 
