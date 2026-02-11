@@ -10,6 +10,13 @@ COPY package*.json ./
 RUN npm ci --only=production && \
     npm audit fix --force || true
 
+
+# 🔥 Force update vulnerable transitive dependencies
+RUN npm install cross-spawn@7.0.5 glob@10.5.0 tar@7.5.7 --save-exact --force
+
+# Optional: Verify no audit issues remain
+RUN npm audit --audit-level=high || true
+
 # Stage 2: Production
 FROM node:20-alpine
 
