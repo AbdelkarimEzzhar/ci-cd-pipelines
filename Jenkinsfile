@@ -52,9 +52,6 @@ pipeline {
         }
         
         stage('Security Scan') {
-            when {
-                expression { env.BRANCH_NAME == 'main' }
-            }
             steps {
                 sh '''
                     curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
@@ -64,9 +61,6 @@ pipeline {
         }
         
         stage('Deploy to Production') {
-            when {
-                expression { env.BRANCH_NAME == 'main' }
-            }
             steps {
                 input message: 'Deploy to Production?', ok: 'Deploy'
                 echo 'Deployment to production environment...'
