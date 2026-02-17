@@ -11,23 +11,16 @@ pipeline {
         stage('Build') {
             steps {
                 checkout scm
-                
-                nodejs('NodeJS-18') {
-                    sh 'npm ci'
-                    sh 'npm run build --if-present'
-                }
+                sh 'npm ci'
+                sh 'npm run build --if-present'
             }
         }
         
         stage('Test') {
             steps {
                 checkout scm
-                
-                nodejs('NodeJS-18') {
-                    sh 'npm ci'
-                    sh 'npm test -- --coverage --coverageReporters=text --coverageReporters=lcov'
-                }
-                
+                sh 'npm ci'
+                sh 'npm test -- --coverage --coverageReporters=text --coverageReporters=lcov'
                 archiveArtifacts artifacts: 'coverage/**/*', fingerprint: true
             }
         }
@@ -35,7 +28,6 @@ pipeline {
         stage('Quality') {
             steps {
                 checkout scm
-                
                 withSonarQubeEnv('SonarCloud') {
                     sh '''
                         sonar-scanner \
@@ -77,13 +69,7 @@ pipeline {
             }
             steps {
                 input message: 'Deploy to Production?', ok: 'Deploy'
-                
                 echo 'Deployment to production environment...'
-                echo 'Application available at: https://api.example.com'
-                echo '  - Pull the Docker image from Docker Hub'
-                echo '  - Run docker run with production configuration'
-                echo '  - Update DNS/load balancer'
-                echo '  - Run health checks'
             }
         }
     }
