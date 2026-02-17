@@ -54,8 +54,8 @@ pipeline {
         stage('Security Scan') {
             steps {
                 sh '''
-                    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
-                    trivy image --severity HIGH,CRITICAL --exit-code 0 --ignorefile .trivyignore $DOCKER_USERNAME/ci-cd-pipelines:latest
+                    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /tmp
+                    /tmp/trivy image --severity HIGH,CRITICAL --exit-code 0 --ignorefile .trivyignore $DOCKER_USERNAME/ci-cd-pipelines:latest
                 '''
             }
         }
